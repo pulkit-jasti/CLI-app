@@ -1,0 +1,20 @@
+{
+	"name": "stdex",
+	"version": "1.0.0",
+	"description": "cli app",
+	"main": "index.js",
+	"bin": "./bin/stdex.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pulkit-jasti/CLI-app.git"
+	},
+	"author": "Pulkit Jasti <pulkit.jasti@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/pulkit-jasti/CLI-app/issues"
+	},
+	"homepage": "https://github.com/pulkit-jasti/CLI-app#readme"
+}
