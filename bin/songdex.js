@@ -2,77 +2,54 @@
 
 const pkg = require('../package.json');
 const commander = require('commander');
-const request = require('request');
 const cheerio = require('cheerio');
 const inquirer = require('inquirer');
 const colors = require('colors');
 const fetch = require('node-fetch');
 
-console.log('song dex link complete');
-
 commander
 	.version(pkg.version)
-	.option('-sn, --songName [name of song]', 'Search for lyrics of any song')
+	.option('-s, --search [Track/Artist/Album]', 'Search for music based on ')
 	.action(par => {
-		console.log(par.songName);
-		console.log('--------'.blue);
-		songSearch(par.songName);
+		songSearch(par.search);
 	})
 	.parse(process.argv);
 
-//commander
-
-const options = commander.opts();
-//console.log(options.songName);
-
-function line(num) {
-	for (let i = 0; i < num; i++) {
-		console.log('============================================================='.yellow);
-	}
-}
-
-//songSearch('zen zen zense')
-
 function songSearch(songName) {
-	const options = {
+	fetch(`https://genius.p.rapidapi.com/search?q=${songName}`, {
 		method: 'GET',
-		url: 'https://genius.p.rapidapi.com/search',
-		qs: { q: songName },
 		headers: {
 			'x-rapidapi-key': 'c5197c28abmsh1312fd9536ea6eep14a057jsnedfce82aaea2',
 			'x-rapidapi-host': 'genius.p.rapidapi.com',
-			useQueryString: true,
 		},
-	};
+	})
+		.then(res => res.json())
+		.then(data => {
+			console.log('============================================================='.yellow);
+			console.log('SEARCH RESULTS'.green);
+			console.log('============================================================='.yellow);
 
-	request(options, function (error, response, body) {
-		if (error) throw new Error(error);
+			let i = 1;
+			data.response.hits.forEach(element => {
+				console.log(`${i++}. ${element.result.title}`);
+			});
 
-		const data = JSON.parse(body);
-		line(1);
-		console.log('SEARCH RESULTS'.green);
-		line(1);
-		for (let i = 0; i < 10; i++) {
-			console.log(`${i + 1}. ${data.response.hits[i].result.title}`);
-		}
-
-		console.log('\n');
-		inquirer
-			.prompt([
-				{
-					type: 'input',
-					name: 'searchIndex',
-					message: 'Select an option'.red,
-				},
-			])
-			.then(cb => {
-				let index = parseInt(cb.searchIndex, 10) - 1;
-				getSongInfo(data.response.hits[index].result);
-			})
-			.catch(err => console.log(err));
-
-		return data;
-	});
+			console.log('\n');
+			inquirer
+				.prompt([
+					{
+						type: 'input',
+						name: 'searchIndex',
+						message: 'Select an option'.red,
+					},
+				])
+				.then(cb => {
+					let index = parseInt(cb.searchIndex, 10) - 1;
+					getSongInfo(data.response.hits[index].result);
+				})
+				.catch(err => console.log(err));
+		})
+		.catch(err => console.error(err));
 }
 
 function getSongInfo(obj) {
