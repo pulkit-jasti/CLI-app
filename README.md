@@ -52,7 +52,7 @@ Search using any of the two commands
 songdex --search '<track/album/artist>'
 ```
 
-<div align"center">pnsknkjn</div>
+Or
 
 ```
 songdex -s '<track/album/artist>'
