@@ -1,7 +1,7 @@
 {
 	"name": "songdex",
 	"version": "1.0.0",
-	"description": "cli app",
+	"description": "Command line application built using javaScript on node js to get information about music tracks like artist, album and also the lyrics",
 	"main": "index.js",
 	"bin": "./bin/songdex.js",
 	"scripts": {
@@ -9,14 +9,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/pulkit-jasti/CLI-app.git"
+		"url": "git+https://github.com/pulkit-jasti/songdex.git"
 	},
 	"author": "Pulkit Jasti <pulkit.jasti@gmail.com>",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/pulkit-jasti/CLI-app/issues"
+		"url": "https://github.com/pulkit-jasti/songdex/issues"
 	},
-	"homepage": "https://github.com/pulkit-jasti/CLI-app#readme",
+	"homepage": "https://github.com/pulkit-jasti/songdex#readme",
 	"dependencies": {
 		"cheerio": "^1.0.0-rc.5",
 		"colors": "^1.4.0",
